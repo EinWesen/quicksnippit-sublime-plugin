@@ -1,0 +1,6 @@
+[
+    { "caption": "QuickSnippet: Use selection as On The Fly Snippet", "command": "quick_otf_snippet", "args": {"subCommand": "template"}},
+    { "caption": "QuickSnippet: Apply On The Fly Snippet", "command": "quick_otf_snippet", "args": {"subCommand": "apply"}},
+    { "caption": "QuickSnippet: Replace tabs in clipboard with seperator", "command": "quick_otf_snippet", "args": {"subCommand": "replace"}},
+    { "caption": "QuickSnippet: Define param seperator", "command": "quick_otf_snippet", "args": {"subCommand": "seperator"}}
+]
