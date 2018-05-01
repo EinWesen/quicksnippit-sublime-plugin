@@ -1,18 +1,17 @@
-# QuickSnippit - A SublimeText 3 - Plugin
+# QuickSnippit - A plugin for SublimeText 3
 
-This is jusst a small plugin for my personal use.
+This is jusst a small plugin mainly for my personal use.
 
 It allowes me to apply some kind of snippet-like template to structured data, effectively giving the opportunity of filling multiple values at predifend places in a text.
 
-Currently the template to be applied is taken from the clipboard. i plan to be able to take from a regular snippet file in the future.
-As well as the possibility to use meaningful variable names.
+Currently the template to be applied is taken from the clipboard. I plan to be able to take it from a regular snippet file too in the future. As well as the possibility to use meaningful variable names.
 
 # Whats supported right now?
 
 Create a snippet / template like
 
     Dear ${PARAM0} ${PARAM1},
-    We have registered your birth year as ${PARAM2].
+    We have registered your birth year as ${PARAM2}.
     Sincerely,
     Name
 
