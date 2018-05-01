@@ -1,52 +1,39 @@
 import sublime
 import sublime_plugin
 
+def AskForSeperator(on_done):
+	def local_on_done(input_string):
+		on_done(input_string[0:1])
+	sublime.active_window().show_input_panel("Please enter delimiter", "|", local_on_done, None, None)
 
-class QuickOtfSnippetCommand(sublime_plugin.TextCommand):
-	mySperator="|"
-	myTemplate=""
-
-	def logText(str):
-		print("OneTimeSnippet:" + str)
-
-
-	def defineSeperator(self, edit):		
-		def on_done(input_string):
-			self.mySperator=input_string.substr(1,1)		
-		self.view.window().show_input_panel("Please enter seperator", self.mySperator, on_done, None, None)
- 
-
-	def defineTemplate(self, edit):
-		self.myTemplate = ""
-		for sel in self.view.sel():
-			self.myTemplate += self.view.substr(sel)
-
-
-	def replaceClipboardTabs(self, edit):
-		sublime.set_clipboard(sublime.get_clipboard().replace('\t', self.mySperator)) 		
-
-
-	def applyTemplate(self, edit):
-		if (self.myTemplate != ""):
-			for sel in self.view.sel():
-				columns = self.view.substr(sel).split(self.mySperator)
-				line = "" + self.myTemplate
-
+class QuickSnippetApplySnippettextCommand(sublime_plugin.TextCommand):	
+	def run(self, edit, snippetText=None, delimiter=None):
+		if (delimiter != None and snippetText != "" and snippetText != None):
+			view = self.view
+			for sel in view.sel():
+				columns = view.substr(sel).split(delimiter)
+				myDict = {}
 				for col in range (0, len(columns)):
-					line=line.replace("$PARAM"+str(col), columns[col])				
-	 
-				self.view.erase(edit, sel)
-				self.view.insert(edit, sel.begin(), line)
+					myDict["PARAM"+str(col)] = columns[col];
 
+				line = sublime.expand_variables(snippetText, myDict)
+		 
+				view.erase(edit, sel)
+				view.insert(edit, sel.begin(), line)
 
-	def run(self, edit, subCommand):
-		if subCommand == "template":
-   			self.defineTemplate(edit)
-		elif subCommand == "seperator":
-   			self.defineSeperator(edit)
-		elif subCommand == "replace":
-   			self.replaceClipboardTabs(edit)
-		elif subCommand == "apply":
-   			self.applyTemplate(edit)   			
+class QuickSnippetApplyOtfsnippetCommand(sublime_plugin.ApplicationCommand):
+	def run(self,delimiter=None):
+		def on_done(input_string):
+			sublime.active_window().active_view().run_command("quick_snippet_apply_snippettext", {"snippetText": sublime.get_clipboard(), "delimiter": input_string})
+		
+		if (delimiter == None or delimiter == ""):			
+			AskForSeperator(on_done)
 		else:
-   			self.logText("Unknown subCommand: " + subCommand)
+			on_done(delimiter)
+
+ 
+class QuickSnippetChangeClipboardCommand(sublime_plugin.ApplicationCommand):
+	def run(self):
+		def on_done(input_string):
+			sublime.set_clipboard(sublime.get_clipboard().replace('\t', input_string))
+		AskForSeperator(on_done)
