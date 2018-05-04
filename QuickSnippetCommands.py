@@ -1,6 +1,7 @@
 import sublime
 import sublime_plugin
 import re
+import os
 
 # ******* DEF SHARED FUNCTIONS *******
 def get_quicksnippets_setting(key, default):
@@ -148,15 +149,33 @@ class RunQuicksnippetCommandCommand(sublime_plugin.TextCommand):
 		#end def prepare_input
 		
 		def show_snippet_list():
-			snippets=[]
+			snippet_files = sublime.find_resources(get_quicksnippets_setting("snippet_resource_pattern", "*.sublime-snippet"))
+			
+			if (len(snippet_files))>0:
+				filterexp = get_quicksnippets_setting("snippet_filter_expression", None)
+				if filterexp != None:
+					filterexp = re.compile(filterexp,re.IGNORECASE)
+					snippet_files = list(filter(filterexp.search, snippet_files))
+				#end if
+			#end if
+
+			if (len(snippet_files))>0:
+				snippets=[]
+				for file in snippet_files:
+					snippets.append(list(reversed(os.path.split(file))))
+				#end for
+			else:
+				sublime.status_message("No Snippets match the defined filters")
+			#end if
+
 				
 			def handleSelect(selected_index):
 				if selected_index > -1: # if not canceled
 					prepare_input(dict(name=snippets[selected_index]))
 				#end if
 			#end def handleSelect
-			sublime.error_message("Not implemented yet, coming soon!")
-			#sublime.active_window().show_quick_panel(snippets, handleSelect)
+			
+			sublime.active_window().show_quick_panel(snippets, handleSelect)
 		#end def show_snippet_list
 
 		if contentType=='file':
