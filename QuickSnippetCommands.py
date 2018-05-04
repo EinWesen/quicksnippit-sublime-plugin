@@ -4,7 +4,7 @@ import re
 
 # ******* DEF SHARED FUNCTIONS *******
 def get_quicksnippets_setting(key, default):
-	return sublime.load_settings("QuickSnippets.sublime-settings").get(key, default)
+	return sublime.active_window().active_view().settings().get("plugin.quicksnippet."+key, default) #load_settings("Preferences.sublime-settings")
 
 def is_str_empty(s):
 	try:
@@ -126,8 +126,6 @@ class RunQuicksnippetCommandCommand(sublime_plugin.TextCommand):
 	def run(self, edit, callbackCommand, contentType, inputPrompt):
 	
 		def runCallbackCommand(runargs):
-			print(callbackCommand)
-			print(runargs)
 			sublime.active_window().active_view().run_command(callbackCommand, runargs)
 		#end def runCallbackCommand
 	
@@ -157,7 +155,6 @@ class RunQuicksnippetCommandCommand(sublime_plugin.TextCommand):
 					prepare_input(dict(name=snippets[selected_index]))
 				#end if
 			#end def handleSelect
-
 			sublime.error_message("Not implemented yet, coming soon!")
 			#sublime.active_window().show_quick_panel(snippets, handleSelect)
 		#end def show_snippet_list

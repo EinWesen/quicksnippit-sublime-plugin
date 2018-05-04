@@ -1,12 +1,20 @@
 {
 	
 	// this is the default delimter used by the insert_selectionsplit_snippet command to split a selection 
-	"default_delimiter": "|",
+	"plugin.quicksnippet.default_delimiter": "|",
 
     // this setting controls how the insert_selectionsplit_snippet command reacts to an undefined delimiter
     // possible values are: "ask", "use_default"
-	"default_delimiter_behavior": "ask",
+	"plugin.quicksnippet.default_delimiter_behavior": "ask",
 
     // this is the default variable based which the insert_selectionsplit_snippet assines the splitted values to
-	"default_variable": "SEL_SPLIT"
+	"plugin.quicksnippet.default_variable": "SEL_SPLIT",
+
+	// pattern used for find_resources when retrieving the list of snippets
+	"plugin.quicksnippet.snippet_resource_pattern": "*.sublime-snippet",
+
+	// this regular expression is applied to path of the retrieved list of snippet files
+	// the filter is applied as search and set as caseinsentive
+	"plugin.quicksnippet.snippet_filter_expression": "^Packages/user/.*"
+
 }
