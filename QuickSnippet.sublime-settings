@@ -1,0 +1,12 @@
+{
+	
+	// this is the default delimter used by the insert_selectionsplit_snippet command to split a selection 
+	"default_delimiter": "|",
+
+    // this setting controls how the insert_selectionsplit_snippet command reacts to an undefined delimiter
+    // possible values are: "ask", "use_default"
+	"default_delimiter_behavior": "ask",
+
+    // this is the default variable based which the insert_selectionsplit_snippet assines the splitted values to
+	"default_variable": "SEL_SPLIT"
+}
