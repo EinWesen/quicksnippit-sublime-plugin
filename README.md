@@ -30,7 +30,7 @@ Copy it to the clipboard and create your structured data like
 Select each line with one individual cursor and apply the snippet with the command in the command palette.
 
 # Important hints / How it works
-Sublime's own snippet system does not provide way to specify different snippet values for different cursors.
+Sublime's own snippet system does not provide a way to specify different snippet values for different cursors.
 When applying a snippet to structured data this plugin works around this limition by using the following worflow:
 
 * Get the snippet contents
@@ -39,7 +39,7 @@ When applying a snippet to structured data this plugin works around this limitio
     * Pass the snippet content to expand_variables with the create dvariables as a dictinary
     * Replace the selection with the result
 
-While this works well (for me ;]), it also has the the following caveats:
+While this works well (for me ;]), it also has the following caveats:
 * The usual variables available in snippets can not be used (although some simple ones like SELECTION could be added)
 * As we don't really insert a snippet, all functionality based on it like placeholders is not available
 * I don't know how this performs on large datasets
