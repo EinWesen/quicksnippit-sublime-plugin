@@ -3,9 +3,9 @@
 	// this is the default delimter used by the insert_selectionsplit_snippet command to split a selection 
 	"plugin.quicksnippet.default_delimiter": "|",
 
-    // this setting controls how the insert_selectionsplit_snippet command reacts to an undefined delimiter
-    // possible values are: "ask", "use_default"
-	"plugin.quicksnippet.default_delimiter_behavior": "ask",
+    // this setting controls how the insert_selectionsplit_snippet command reacts when run via command palette
+    // true means, it will show an inputfield to confirm the delimiter
+	"plugin.quicksnippet.confirm_default_delimiter": true,
 
     // this is the default variable based which the insert_selectionsplit_snippet assines the splitted values to
 	"plugin.quicksnippet.default_variable": "SEL_SPLIT",

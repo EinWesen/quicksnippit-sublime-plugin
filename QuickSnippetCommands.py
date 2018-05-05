@@ -33,7 +33,7 @@ class InsertSelectionsplitSnippetCommand(sublime_plugin.TextCommand):
 		if self.is_str_not_empty(contents) and self.is_str_not_empty(delimiter): # if we finally have content
 
 			#apply some defaults
-			if is_str_empty(variable): variable=sublime.load_settings(SETTINGS_FILE).get("default_variable", "SEL_SPLIT")
+			if is_str_empty(variable): variable=get_quicksnippets_setting("default_variable", "SEL_SPLIT")
 
 			view = self.view
 			for sel in view.sel():
@@ -75,10 +75,10 @@ class CallInsertSelectionsplitSnippetCommand(sublime_plugin.TextCommand):
 		#end def
 
 		if is_str_empty(delimiter):
-			if get_quicksnippets_setting("default_delimiter_behavior", "ask") == "use_default":			
-				handledelimiter("")
-			else:
+			if get_quicksnippets_setting("confirm_default_delimiter", True):			
 				sublime.active_window().show_input_panel("Delimiter?", get_quicksnippets_setting("default_delimiter", "|"), handledelimiter, None, None)
+			else:
+				handledelimiter("")
 			#end if
 		#end if		
 	#end def
