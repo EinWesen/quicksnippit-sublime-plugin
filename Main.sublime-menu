@@ -1,0 +1,50 @@
+[
+/*    {
+        "id": "tools",
+        "children":
+        [
+            {
+                "id": "packages",
+                "caption": "Packages",
+                "children":
+                [
+                    {
+                        "caption": "QuickSnippet",
+                        "children":
+                        [
+                           
+                        ]
+                    }
+                ]
+            }
+        ]
+    },*/
+
+    {
+        "id": "preferences",
+        "children":
+        [
+            {
+                "caption": "Package Settings",
+                "mnemonic": "P",
+                "id": "package-settings",
+                "children":
+                [
+                    {
+                        "caption": "QuickSnippet",
+                        "children":
+                        [
+                            {
+                                "command": "edit_settings", "args": {
+                                    "base_file": "${packages}/QuickSnippet/Preferences.sublime-settings",
+                                    "default": "{\n$0\n}\n"
+                                },
+                                "caption": "Settings"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
