@@ -147,7 +147,7 @@ class RunQuicksnippetCommandCommand(sublime_plugin.TextCommand):
 					sublime.error_message(repr(e))
 			#end def handleInput
 		
-			if inputPrompt == "True":
+			if inputPrompt == True:
 				sublime.active_window().show_input_panel("Enter additional values as JSON keymap", "", handleInput, None, None)				
 			else:
 				runCallbackCommand(runargs)
