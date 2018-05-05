@@ -35,6 +35,13 @@
                         "children":
                         [
                             {
+                                "command": "toggle_setting_global", "args": {
+                                    "setting": "plugin.quicksnippet.confirm_default_delimiter"
+                                },
+                                "caption": "Toggle - Confirm default delimiter"
+                            },                            
+                            { "caption" :"-"},
+                            {
                                 "command": "edit_settings", "args": {
                                     "base_file": "${packages}/QuickSnippet/Preferences.sublime-settings",
                                     "default": "{\n$0\n}\n"
