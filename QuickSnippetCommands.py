@@ -148,38 +148,28 @@ class RunQuicksnippetCommandCommand(sublime_plugin.TextCommand):
 			#end if	
 		#end def prepare_input
 		
-		def show_snippet_list():
-			snippet_files = sublime.find_resources(get_quicksnippets_setting("snippet_resource_pattern", "*.sublime-snippet"))
+		if contentType=='file':
 			
-			if (len(snippet_files))>0:
-				filterexp = get_quicksnippets_setting("snippet_filter_expression", None)
-				if filterexp != None:
-					filterexp = re.compile(filterexp,re.IGNORECASE)
-					snippet_files = list(filter(filterexp.search, snippet_files))
-				#end if
-			#end if
+			filterpattern = get_quicksnippets_setting("snippet_resource_pattern", "*.sublime-snippet")			
+			filterexp = get_quicksnippets_setting("snippet_filter_expression", None)
+			if filterexp != None:
+				filterexp = re.compile(filterexp,re.IGNORECASE)
+			# end if
+
+			snippet_files = [f for f in sublime.find_resources(filterpattern) if (filterexp == None or filterexp.search(f))]
+			snippets = [list(reversed(os.path.split(f))) for f in snippet_files]
 
 			if (len(snippet_files))>0:
-				snippets=[]
-				for file in snippet_files:
-					snippets.append(list(reversed(os.path.split(file))))
-				#end for
+				def handleSelect(selected_index):
+					if selected_index > -1: # if not canceled
+						prepare_input(dict(name=snippet_files[selected_index]))
+					#end if
+				#end def handleSelect				
+				sublime.active_window().show_quick_panel(snippets, handleSelect)			
 			else:
 				sublime.status_message("No Snippets match the defined filters")
-			#end if
-
-				
-			def handleSelect(selected_index):
-				if selected_index > -1: # if not canceled
-					prepare_input(dict(name=snippets[selected_index]))
-				#end if
-			#end def handleSelect
+			#end if	
 			
-			sublime.active_window().show_quick_panel(snippets, handleSelect)
-		#end def show_snippet_list
-
-		if contentType=='file':
-			show_snippet_list()
 		elif contentType=='clipboard':			
 			prepare_input(dict(contents=sublime.get_clipboard()))
 		else:
