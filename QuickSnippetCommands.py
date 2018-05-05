@@ -60,7 +60,7 @@ class InsertSelectionsplitSnippetCommand(sublime_plugin.TextCommand):
 #end class
 
 # Helper class, as the current sublimw version does not support the input method yet
-class CallInsertSelectionsplitSnippetCommand(sublime_plugin.TextCommand):
+class CallInsertSelectionsplitSnippetCommand(sublime_plugin.ApplicationCommand):
 
 	def run(self, edit, delimiter=None, **args):
 		
@@ -90,7 +90,7 @@ class CallInsertSelectionsplitSnippetCommand(sublime_plugin.TextCommand):
 	#end def
 #end class
 
-class RunQuicksnippetCommandCommand(sublime_plugin.TextCommand):
+class RunQuicksnippetCommandCommand(sublime_plugin.ApplicationCommand):
 
 	def castAsDict(self, variables):
 		if variables!=None:		
