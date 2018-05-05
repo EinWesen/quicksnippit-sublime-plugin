@@ -2,6 +2,7 @@ import sublime
 import sublime_plugin
 import re
 import os
+from xml.dom import minidom
 
 # ******* DEF SHARED FUNCTIONS *******
 def get_quicksnippets_setting(key, default):
@@ -27,7 +28,12 @@ class InsertSelectionsplitSnippetCommand(sublime_plugin.TextCommand):
 
 	def run(self, edit, delimiter, contents=None, name=None, variable=None, **args):
 		if is_str_empty(contents) and self.is_str_not_empty(name):
-			raise ValueError("empty contents / loading from snippet file is not supported yet")
+			try:
+				contents = minidom.parseString(sublime.load_resource(name)).getElementsByTagName('content')[0].firstChild.data		
+			except (IOError, ValueError) as e:
+				sublime.error_message(repr(e))
+				contents=""
+			#end try
 		#end if empty contents 
 
 		if self.is_str_not_empty(contents) and self.is_str_not_empty(delimiter): # if we finally have content
@@ -138,7 +144,7 @@ class RunQuicksnippetCommandCommand(sublime_plugin.TextCommand):
 					finalrunargs.update(runargs)
 					runCallbackCommand(finalrunargs)
 				except ValueError as e:
-					sublime.error_message(str(e))
+					sublime.error_message(repr(e))
 			#end def handleInput
 		
 			if inputPrompt == "True":
@@ -178,3 +184,4 @@ class RunQuicksnippetCommandCommand(sublime_plugin.TextCommand):
 	
 	#end def run
 #end class
+
