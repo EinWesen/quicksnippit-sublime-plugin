@@ -1,0 +1,21 @@
+{
+	"schema_version": "3.0.0",
+	"packages": [
+		{
+			"name": "QuickSnippet",
+			"description": "Use your clipboard as snippet, add argumnents, or use them as template on structed data",
+			"details": "https://github.com/EinWesen/quicksnippit-sublime-plugin",
+			"labels": ["snippets", "template", "text manipulation"],
+			"releases": [			
+				{
+					"sublime_text": "3000 - 3143",
+					"tags": true
+				},
+				{
+					"sublime_text": ">3143",
+					"tags": true
+				}				
+			]
+		}
+	]	
+}
