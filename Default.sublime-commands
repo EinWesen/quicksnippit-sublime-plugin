@@ -5,7 +5,5 @@
     { "caption": "QuickSnippet: { SnippetFile with arguments }", "command": "run_quicksnippet_command", "args": {"callbackCommand": "insert_snippet", "inputArgs": true}},
     { "caption": "QuickSnippet: { Clipboard with SelectionSplit }", "command": "run_quicksnippet_command", "args": {"callbackCommand": "insert_selectionsplit_snippet", "contents": "$CLIPBOARD", "inputArgs": false}}, 
     { "caption": "QuickSnippet: { SnippetFile with SelectionSplit }", "command": "run_quicksnippet_command", "args": {"callbackCommand": "insert_selectionsplit_snippet", "inputArgs": false}},    
-	{ "caption": "QuickSnippet: { SnippetFile with SelectionSplit with arguments}", "command": "run_quicksnippet_command", "args": {"callbackCommand": "insert_selectionsplit_snippet", "inputArgs": true}},
-	{ "caption": "QuickSnippet: { TEST (set) }", "command": "test_insert_selectionsplit_snippet", "args": {"callbackCommand": "insert_snippet", "contents":"$CLIPBOARD", "inputArgs": true}},
-	{ "caption": "QuickSnippet: { TEST (none) }", "command": "test_insert_selectionsplit_snippet"},
+	{ "caption": "QuickSnippet: { SnippetFile with SelectionSplit with arguments}", "command": "run_quicksnippet_command", "args": {"callbackCommand": "insert_selectionsplit_snippet", "inputArgs": true}}
 ] 

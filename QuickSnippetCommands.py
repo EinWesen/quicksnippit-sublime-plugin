@@ -29,11 +29,16 @@ class InsertSelectionsplitSnippetCommand(sublime_plugin.TextCommand):
 	class _DelimiterInputHandler(sublime_plugin.TextInputHandler):
 		def __init__(self): pass			
 		def name(self): return "delimiter"
-		def description(self, text): return text		
-		def placeholder(self): return get_quicksnippets_setting("default_delimiter", "|")
+		def description(self, text): return text
+		def placeholder(self): return self.initial_text()	
+		def initial_text(self): return get_quicksnippets_setting("default_delimiter", "|")
+		def validate(self, text): return is_str_not_empty(text)
 		def preview(self, text):
-			if is_str_empty(text): text=get_quicksnippets_setting("default_delimiter", "|")
-			return "Choose the delimiter! Example data for current input: A{0}B{0}C".format(text)
+			if is_str_empty(text): 
+				return "Choose the delimiter!"
+			else:
+				return "Choose the delimiter! Example data for current input: A{0}B{0}C".format(text)
+			#end if
 		#end def
 	#end sub class
 
