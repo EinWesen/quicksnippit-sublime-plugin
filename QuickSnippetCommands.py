@@ -169,7 +169,7 @@ class RunQuicksnippetCommandCommand(sublime_plugin.ApplicationCommand):
 		runargs = dict()
 		runargs.update(args)
 		
-		if inputArgs != None:
+		if inputArgs != None and inputArgs != False:
 			runargs.update(self.castAsDict(inputArgs))
 
 		runargs.update(dict(contents=contents, name=name))
