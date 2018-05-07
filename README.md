@@ -7,10 +7,10 @@ It allowes me to apply some kind of snippet-like template to structured data, ef
 # Features
 * Insert the current contents of the clipboard as a snippet
 * Insert an existing snippet, but show an input to define variables first (need to enter a Json-Structure)
-* Apply a snippet to a selection, which will be split by a delimiter, and each split is made avaiable as varaible in the snippet
+* Apply a snippet to a selection, which will be split by a delimiter, and each split is made available as variable in the snippet
    * This feature can be used with one of the feature mentioned above 
 
-I choose not to clutter your key bindings and menu by default. So apart from teh settings menu items all feature are made availble through the command palette.
+I choose not to clutter your key bindings and menu by default. So apart from the settings menu items all features are made available through the command palette.
 
 
 # Usage of structured data
@@ -35,8 +35,8 @@ When applying a snippet to structured data this plugin works around this limitio
 
 * Get the snippet contents
 * Loop through all selections
-    * Split the selection by a delimiter and assing it to variables
-    * Pass the snippet content to expand_variables with the create dvariables as a dictinary
+    * Split the selection by a delimiter and assign it to variables
+    * Pass the snippet content to expand_variables with the created variables as a dictinary
     * Replace the selection with the result
 
 While this works well (for me ;]), it also has the following caveats:
