@@ -151,12 +151,14 @@ class RunQuicksnippetCommandCommand(sublime_plugin.ApplicationCommand):
 	#end sub class
 	
 	class _ArgsInputHandler(sublime_plugin.TextInputHandler):
-		def __init__(self, parentCmd): self.__parentCmd=parentCmd
+		def __init__(self, child, parentCmd): 
+			self.__parentCmd=parentCmd
+			self.__child = child
 		def name(self): return "inputArgs"
 		def description(self, text): return text		
 		def placeholder(self): return "Enter additional values as JSON keymap"
 		def validate(self, text): return self.preview(text) != '--ERROR--'
-		
+		def next_input(self, cmdargs): return self.__child
 		def preview(self, text):
 			try:
 				return sublime.Html("Result: <i>{}</i>".format(str(self.__parentCmd.castAsDict(text))))
@@ -178,15 +180,26 @@ class RunQuicksnippetCommandCommand(sublime_plugin.ApplicationCommand):
 			runargs.update(self.castAsDict(inputArgs))
 
 		runargs.update(dict(contents=contents, name=name))
+		
 		sublime.active_window().active_view().run_command(callbackCommand, runargs)
 	#end def
 
 	def input(self, args):
 		handler1 = None
 		handler2 = None
+		handler3 = None
+
+		# Unfortunately , for whatever reason the delimiter input gets not triggered 
+		# when called via runCommand from here... so we have to make sure it is part of this chain
+		# in the end		
+		if args.get("callbackCommand") == 'insert_selectionsplit_snippet':
+			handler3 = 	InsertSelectionsplitSnippetCommand(sublime.active_window().active_view()).input(args)
+		#end if
 		
 		if args.get("inputArgs"):
-			handler2 = RunQuicksnippetCommandCommand._ArgsInputHandler(self)
+			handler2 = RunQuicksnippetCommandCommand._ArgsInputHandler(handler3, self)
+		else:
+			handler2 = handler3
 		#end if
 
 		if is_str_empty(args.get("contents")) and is_str_empty(args.get("name")):
