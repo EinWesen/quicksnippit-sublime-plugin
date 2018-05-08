@@ -110,7 +110,7 @@ class RunQuicksnippetCommandCommand(sublime_plugin.ApplicationCommand):
 							elif re.match("(['\"])[^'\"]*?\\1=(['\"])[^'\"]*?\\2", variables) != None:
 								key,val = variables.split("\"=\"",1)
 								variables = sublime.decode_value("{" + key + "\":\""+ val + "}") # may still throw ValueError
-							elif re.match("(['\"])[^'\"]?\\1:(['\"])[^'\"]*?\\2", variables) != None:
+							elif re.match("(['\"])[^'\"]?\\1\\:(['\"])[^'\"]*?\\2", variables) != None:
 								variables = sublime.decode_value("{" + variables + "}") # may still throw ValueError
 							#end if
 						#end try
