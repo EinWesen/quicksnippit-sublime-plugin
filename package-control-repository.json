@@ -8,11 +8,13 @@
 			"labels": ["snippets", "template", "text manipulation"],
 			"releases": [			
 				{
-					"sublime_text": "3000 - 3143",
-					"tags": true
+					"version": "1.0.2",
+					"url": "https://github.com/EinWesen/quicksnippit-sublime-plugin/archive/1.0.2.zip",
+					"date": "2018-05-08 17:30:00",
+					"sublime_text": "3000 - 3143"
 				},
 				{
-					"sublime_text": ">3143",
+					"sublime_text": ">=3170",
 					"tags": true
 				}				
 			]
