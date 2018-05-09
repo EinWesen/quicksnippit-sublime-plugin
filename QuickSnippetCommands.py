@@ -129,7 +129,7 @@ class RunQuicksnippetCommandCommand(sublime_plugin.ApplicationCommand):
 		def description(self, key, value): return value
 		def placeholder(self): return "Choose a snippet"
 		def next_input(self, cmdargs): return self.__child
-		
+		def validate(self, text): return text !=""
 		def list_items(self):
 			filterpattern = get_quicksnippets_setting("snippet_resource_pattern", "*.sublime-snippet")			
 			filterexp = get_quicksnippets_setting("snippet_filter_expression", None)
@@ -138,15 +138,17 @@ class RunQuicksnippetCommandCommand(sublime_plugin.ApplicationCommand):
 			# end if
 
 			snippets = [(os.path.splitext(os.path.basename(f))[0], f) for f in sublime.find_resources(filterpattern) if (filterexp == None or filterexp.search(f))]
-			if len(snippets)==0:
-				sublime.status_message("No Snippets match the defined filters")
+			if len(snippets)==0: snippets = [""]
 			return snippets
 		#end def
 
 		def preview(self, text):
-#			if is_str_empty(text): text=get_quicksnippets_setting("default_delimiter", "|")
-			path, file = os.path.split(text)
-			return sublime.Html("{}<br>{}<br><i>{}</i>".format(path, file, "----"))
+			if text:
+				path, file = os.path.split(text)
+				return sublime.Html("{}<br>{}<br><i>{}</i>".format(path, file, "----"))
+			else:
+				return sublime.Html("No snippets found.<br><i>Either no snippet are available or none match the set filter</i>")
+			#end if
 		#end def
 	#end sub class
 	
