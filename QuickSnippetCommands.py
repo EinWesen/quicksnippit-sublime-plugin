@@ -191,12 +191,17 @@ class RunQuicksnippetCommandCommand(sublime_plugin.ApplicationCommand):
 		handler2 = None
 		handler3 = None
 
-		# Unfortunately , for whatever reason the delimiter input gets not triggered 
+		# Unfortunately , for whatever reason the inputs of the callback command gets not triggered 
 		# when called via runCommand from here... so we have to make sure it is part of this chain
-		# in the end		
-		if args.get("callbackCommand") == 'insert_selectionsplit_snippet':
-			handler3 = 	InsertSelectionsplitSnippetCommand(sublime.active_window().active_view()).input(args)
-		#end if
+		# in the end				
+		try:			
+			callback_class = args.get('callbackCommand').title().replace('_', '') + "Command"		
+			if (callback_class != 'InsertSnippetCommand'): # just for our own commands
+				handler3 = globals()[callback_class](self.view).input(args)
+			#end
+		except:
+			sublime.error_message('Could instantiate callback-class ' + callback_class)
+		#end try
 		
 		if args.get("inputArgs"):
 			handler2 = RunQuicksnippetCommandCommand._ArgsInputHandler(handler3, self)
