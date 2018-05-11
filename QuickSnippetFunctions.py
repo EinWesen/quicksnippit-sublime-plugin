@@ -13,9 +13,9 @@ def is_str_empty(s):
 
 def is_str_not_empty(s):
 	try:
-		return s.strip() != ""
+		return s != None and s.strip() != ""
 	except:
-		return True
+		return False
 #end def
 
 def castStringAsDict(variables):
